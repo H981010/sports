@@ -31,22 +31,19 @@ public class LoginController {
 
 	/**
 	 * 登录
-	 * @param jobNumber
-	 * @param password
-	 * @return
 	 */
 	@GetMapping("/in")
 	public CustomerException in(String jobNumber,String password){
 		User user = userService.get(jobNumber, password);
 		if (user == null)
 			throw new CustomerException("密码错误");
+
 		session.setAttribute("user", user);
 		return new CustomerException("1","登录成功");
 	}
 
 	/**
 	 * 登出
-	 * @return
 	 */
 	@GetMapping("/out")
 	public String out(){

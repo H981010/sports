@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import sportsinformation.entity.User;
 
+import java.util.List;
+
 @Repository
 public interface UserRepository
         extends JpaRepository<User, Integer>, JpaSpecificationExecutor<User> {
@@ -15,4 +17,6 @@ public interface UserRepository
 
 	@Query("select u from User u where u.jobNumber = ?1 and u.password = ?2")
 	User findByJobNumberAndPassword(String jobNumber,String password);
+
+
 }

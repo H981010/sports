@@ -1,6 +1,9 @@
 package sportsinformation.service;
 
 import sportsinformation.entity.User;
+import sportsinformation.util.Page;
+
+import java.util.List;
 
 /**
  * @ClassName: UserService
@@ -30,5 +33,15 @@ public interface UserService {
 	 *  获取用户信息
 	 */
 	User get(String jobNumber,String password);
+
+	/**
+	 *  获取用户信息,分页条件查询
+	 */
+	org.springframework.data.domain.Page<User> get(User user, Page page);
+
+	/**
+	 *  修改用户权限
+	 */
+	void updatePower(List<Integer> userIds);
 
 }
