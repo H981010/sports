@@ -13,6 +13,6 @@ import java.util.List;
 public interface ClassesRepository
         extends JpaRepository<Classes, Integer>, JpaSpecificationExecutor<Classes> {
 
-	@Query("select c from Classes c where c.collegeId = ?1")
+	@Query("select c from Classes c where c.college.id = ?1")
 	List<Classes> findAllByCollegeId(Integer id);
 }

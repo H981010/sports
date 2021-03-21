@@ -26,4 +26,10 @@ public class ResultVo {
 	public ResultVo(Object data){
 		this.data = data;
 	}
+
+	public ResultVo(Message.MESSAGE message){
+		if (!message.equals(Message.MESSAGE.success))
+			this.code = "-1";
+		this.data = message;
+	}
 }

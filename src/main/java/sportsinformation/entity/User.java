@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.beans.BeanUtils;
+import sportsinformation.vo.UserVo;
 
 import javax.persistence.*;
 
@@ -24,8 +26,9 @@ public class User {
     private String userName;      //用户名
     @Column(name = "password",nullable = false)
     private String password;       //密码
-    private Integer collegeId;       //学院id
-    private Integer classesId;       //班级id
+    @OneToOne
+    @JoinColumn(name = "classesId", foreignKey = @ForeignKey(name = "none", value = ConstraintMode.NO_CONSTRAINT))
+    private Classes classes;        //班级
     private String email;         //邮箱
     private String telephone;     //电话
     private String sex;            //性别
@@ -35,4 +38,5 @@ public class User {
     private String hobby;          //爱好
     @Column(name = "power",nullable = false)
     private int power;              // 用户权限，0为管理员，1位普通用户
+
 }

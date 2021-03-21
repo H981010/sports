@@ -6,7 +6,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import sportsinformation.dao.ClassesRepository;
 import sportsinformation.dao.UserRepository;
+import sportsinformation.entity.Classes;
 import sportsinformation.entity.User;
 import sportsinformation.exception.CustomerException;
 import sportsinformation.service.UserService;
@@ -33,6 +35,9 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private EntityManager entityManager;
 
+	@Autowired
+	private ClassesRepository classesRepository;
+
 
 	@Override
 	public void add(User user) {
@@ -48,7 +53,13 @@ public class UserServiceImpl implements UserService {
 			throw new CustomerException("该工号已存在，请修改");
 		// 注册用户
 		user.setPower(1);
-		userRepository.save(user);
+		Classes classes = classesRepository.getOne(user.getClasses().getClassesId());
+		System.out.println(classes.toString());
+		if (classes.getClassName() != null){
+			user.setClasses(classes);
+			userRepository.save(user);
+		}
+
 	}
 
 	@Override
@@ -84,10 +95,10 @@ public class UserServiceImpl implements UserService {
 		// 构造条件
 		Specification<User> specification = (Specification<User>) (root, criteriaQuery, criteriaBuilder) -> {
 			List<Predicate> predicateTagList = new ArrayList<>();
-			if (!StringUtils.isEmpty(user.getCollegeId()))
-				predicateTagList.add(criteriaBuilder.equal(root.get("collegeId"), user.getCollegeId()));
-			if (!StringUtils.isEmpty(user.getClassesId()))
-				predicateTagList.add(criteriaBuilder.equal(root.get("classesId"), user.getClassesId()));
+			if (!StringUtils.isEmpty(user.getClasses().getCollege().getCollegeId()))
+				predicateTagList.add(criteriaBuilder.equal(root.get("collegeId"), user.getClasses().getCollege().getCollegeId()));
+			if (!StringUtils.isEmpty(user.getClasses().getClassesId()))
+				predicateTagList.add(criteriaBuilder.equal(root.get("classesId"), user.getClasses().getClassesId()));
 			if (!StringUtils.isEmpty(user.getUserName()))
 				predicateTagList.add(criteriaBuilder.like(root.get("username"), "%"+user.getUserName()+"%"));
 			if (!StringUtils.isEmpty(user.getJobNumber()))

@@ -14,6 +14,7 @@ import sportsinformation.entity.College;
 import sportsinformation.entity.User;
 import sportsinformation.exception.CustomerException;
 import sportsinformation.service.UserService;
+import sportsinformation.vo.UserVo;
 import sun.reflect.generics.repository.ClassRepository;
 
 import javax.servlet.http.HttpSession;
@@ -61,10 +62,12 @@ public class RegisterController {
 	/**
 	 * 注册
 	 */
+
 	@PostMapping("/register")
-	public boolean  register(User user){
+	public boolean  register(UserVo userVo){
+		User user = new User();
+		UserVo.copy(user,userVo);
 		userService.add(user);
 		return true;
 	}
-
 }
