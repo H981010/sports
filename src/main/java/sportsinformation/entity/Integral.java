@@ -16,9 +16,9 @@ import javax.persistence.*;
 public class Integral {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int integralId;          //积分id
-    private int eventId;             //比赛项目id
-    private int classesId;          //班级id
-    private int collegeId;         //学院id
-    private int integralScore;    //积分分数
+    private Integer integralId;          //积分id
+    private Integer eventId;             //比赛项目id
+    private Integer classesId;           //班级id
+    private Integer collegeId;           //学院id
+    private Integer integralScore;       //积分分数
 }

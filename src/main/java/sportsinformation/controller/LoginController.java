@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import sportsinformation.entity.User;
 import sportsinformation.exception.CustomerException;
 import sportsinformation.service.UserService;
@@ -19,7 +20,7 @@ import javax.servlet.http.HttpSession;
  * @Version: 1.0
  **/
 
-@Controller
+@RestController
 @RequestMapping("/login")
 public class LoginController {
 
@@ -33,11 +34,12 @@ public class LoginController {
 	 * 登录
 	 */
 	@GetMapping("/in")
-	public CustomerException in(String jobNumber,String password){
-		User user = userService.get(jobNumber, password);
+	public CustomerException in(String jobNumber,String password,Integer identity){
+		if (identity !=0 && identity != 1)
+			throw new CustomerException("参数错误");
+		User user = userService.get(jobNumber, password, identity);
 		if (user == null)
 			throw new CustomerException("密码错误");
-
 		session.setAttribute("user", user);
 		return new CustomerException("1","登录成功");
 	}

@@ -16,6 +16,6 @@ import javax.persistence.*;
 public class College {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int collegeId;          //学院id
+    private Integer collegeId;          //学院id
     private String collegeName;     //学院名称
 }

@@ -1,0 +1,31 @@
+.not_start{
+	width: 60px;
+	background-color: #09b4c5;
+	border-radius: 10px;
+	color: white;
+	border: 0;
+}
+.going_on{
+	width: 60px;
+	background-color: #5cb85c;
+	border-radius: 10px;
+	color: white;
+	border: 0;
+}
+.end{
+	width: 60px;
+	background-color: #d9534f;
+	border-radius: 10px;
+	color: white;
+	border: 0;
+}
+.btn_details{
+	width: 60px;
+	height: 30px;
+	background-color: #fff;
+	border-radius: 30px;
+	border: 1px solid black;
+}
+.btn_details:hover{
+	background-color: #09b4c5;
+}

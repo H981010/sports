@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -18,7 +19,9 @@ public class Group {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int groupId;     //团队id（学院id或班级id）
 
-    private int eventId;      //项目id
-    private int userId;        //参赛人员id
+    @ManyToMany
+    @JoinTable(name = "link_group_user", joinColumns = { @JoinColumn(name = "groupId") }, inverseJoinColumns = {
+            @JoinColumn(name = "userId") }, foreignKey = @ForeignKey(name = "none", value = ConstraintMode.NO_CONSTRAINT), inverseForeignKey = @ForeignKey(name = "none", value = ConstraintMode.NO_CONSTRAINT))
+    private List<User> users;        //参赛人员
 
 }

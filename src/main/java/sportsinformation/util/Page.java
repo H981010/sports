@@ -1,7 +1,9 @@
 package sportsinformation.util;
 
 import lombok.Data;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 /**
  * @ClassName: Page
@@ -20,4 +22,11 @@ public class Page {
 	private String sortBy;
 
 	private Integer sortMode;
+
+	public static Pageable getPageAble(Page page){
+
+		return PageRequest.of(page.page - 1, page.size,
+				page.sortMode == 0 ? Sort.Direction.DESC : Sort.Direction.ASC, page.sortBy);
+
+	}
 }

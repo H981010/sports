@@ -83,11 +83,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User get(String jobNumber,String password) {
-		User user = userRepository.findByJobNumber(jobNumber);
+	public User get(String jobNumber,String password,Integer identity) {
+		User user = userRepository.findByJobNumberAndPassword(jobNumber,password,identity);
 		if (user == null)
 			throw new CustomerException("不存在该用户,请先注册");
-		return userRepository.findByJobNumberAndPassword(jobNumber, password);
+		return user;
 	}
 
 	@Override

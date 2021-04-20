@@ -18,7 +18,7 @@ import javax.persistence.*;
 public class Classes {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int classesId;        //班级id
+    private Integer classesId;        //班级id
 
     private String className;      //班级名称
 

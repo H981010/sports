@@ -18,5 +18,6 @@ public interface UserRepository
 	@Query("select u from User u where u.jobNumber = ?1 and u.password = ?2")
 	User findByJobNumberAndPassword(String jobNumber,String password);
 
-
+	@Query("select u from User u where u.jobNumber = ?1 and u.password = ?2 and u.power=?3")
+	User findByJobNumberAndPassword(String jobNumber,String password,Integer identity);
 }

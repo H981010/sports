@@ -72,17 +72,17 @@ body{
 	margin-top:8px;
 }
 .admin_login dd{
-	margin:5px 0;
+	margin:10px 0;
 	height:42px;
 	overflow:hidden;
 	position:relative;
 }
 .admin_login dd .login_txtbx{
 	font-size:14px;
-	height:26px;
-	line-height:26px;
+	height:42px;
+	line-height:42px;
 	padding:8px 5%;
-	width:90%;
+	width:100%;
 	text-indent:2em;
 	border:none;
 	background:#5cbdaa;

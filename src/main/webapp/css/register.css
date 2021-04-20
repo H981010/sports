@@ -81,10 +81,11 @@ a:hover { text-decoration: none; }
 }
 
 .register form input {
-    width: 95%;
+    width: 77%;
     height: 30px;
     background: #fcfcfc;
     border: 1px solid #ddd;
+    margin-left: 20px;
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
     border-radius: 2px;
@@ -201,4 +202,11 @@ a:hover { text-decoration: none; }
 
     .register form button { width: 97%; }
 
+}
+.sel_col{
+	width: 80%;
+    height: 30px;
+    background: #fcfcfc;
+    border: 1px solid #ddd;
+    margin-left: 20px;
 }

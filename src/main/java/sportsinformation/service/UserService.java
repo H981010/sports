@@ -32,7 +32,7 @@ public interface UserService {
 	/**
 	 *  获取用户信息
 	 */
-	User get(String jobNumber,String password);
+	User get(String jobNumber,String password,Integer identity);
 
 	/**
 	 *  获取用户信息,分页条件查询
