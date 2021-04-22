@@ -14,4 +14,8 @@ public interface GroupRouteRepository
         extends JpaRepository<GroupRoute, Integer>, JpaSpecificationExecutor<GroupRoute> {
 
 	List<GroupRoute> findAllByEventId(Integer eventId);
+
+	@Query("select max(g.groupsId) from GroupRoute g where g.eventId = ?1")
+	Integer findMaxGroup(Integer eventId);
+
 }

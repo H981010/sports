@@ -37,6 +37,6 @@ public class User {
     private Double weight;            //体重
     private String hobby;          //爱好
     @Column(name = "power",nullable = false)
-    private int power;              // 用户权限，0为管理员，1位普通用户
+    private int power;              // 用户权限，0为校级管理员，1位院级管理员，2为普通用户
 
 }

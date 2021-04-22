@@ -23,13 +23,6 @@ $(function () {
         window.location.href = "dailyedit.jsp?id="+id;
     });
 
-    // // 查询
-    // $("#cat_id").change(function () {
-    //     var select = $(this).attr("value");
-    //     var data = getSelect(select);
-    //     getWhereInfo(data);
-    // });
-
     // 模糊查询
     $("#select").click(function () {
         // var select = $("#cat_id option:selected").attr("value");
@@ -136,7 +129,6 @@ $(function () {
 
     });
 
-
     //全选-全不选
     var flag = true;
     $("#chkall").click(function() {
@@ -168,7 +160,6 @@ $(function () {
             }
         });
     }
-
 
     function success(result) {
         if (result.code === -1)
@@ -223,35 +214,5 @@ $(function () {
             $(".project_content").html(tableHtml);
         }
     }
-    // function getSelect(select){
-    //     var data = {};
-    //     var name = $(".inpMain").val();
-    //     if (select == 0){
-    //         data = {
-    //             'eventName':name
-    //         };
-    //     }
-    //     else if (select == 1){
-    //         data = {
-    //             'type':1,
-    //             'eventName':name
-    //         };
-    //     }else if (select == 2){
-    //         data = {
-    //             'type':0,
-    //             'eventName':name
-    //         };
-    //     }else if (select == 3){
-    //         data = {
-    //             'xianzhi':2,
-    //             'eventName':name
-    //         };
-    //     }else {
-    //         data = {
-    //             'xianzhi':1,
-    //             'eventName':name
-    //         };
-    //     }
-    //     return data;
-    // }
+
 });

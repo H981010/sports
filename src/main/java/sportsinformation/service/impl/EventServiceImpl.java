@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import sportsinformation.dao.ClassesRepository;
 import sportsinformation.dao.EventRepository;
+import sportsinformation.dao.GroupRouteRepository;
 import sportsinformation.dao.UserRepository;
 import sportsinformation.entity.Classes;
 import sportsinformation.entity.Event;
@@ -18,6 +19,8 @@ import sportsinformation.service.UserService;
 import sportsinformation.util.Page;
 
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +41,9 @@ public class EventServiceImpl implements EventService {
 
 	@Autowired
 	private EventRepository eventRepository;
+
+	@Autowired
+	private GroupRouteRepository groupRouteRepository;
 
 
 	@Override public void add(Event event) {
@@ -79,8 +85,12 @@ public class EventServiceImpl implements EventService {
 				predicateTagList.add(criteriaBuilder.equal(root.get("type"), event.getType()));
 			if (!StringUtils.isEmpty(event.getXianZhi()))
 				predicateTagList.add(criteriaBuilder.equal(root.get("xianZhi"), event.getXianZhi()));
+			if (!StringUtils.isEmpty(event.getSignStatus()))
+				predicateTagList.add(criteriaBuilder.equal(root.get("signStatus"), event.getSignStatus()));
 			if (!StringUtils.isEmpty(event.getEventName()))
 				predicateTagList.add(criteriaBuilder.like(root.get("eventName"), "%"+event.getEventName()+"%"));
+			if (!StringUtils.isEmpty(event.getCollegeId()))
+				predicateTagList.add(criteriaBuilder.equal(root.get("collegeId"),event.getCollegeId()));
 			predicateTagList.add(criteriaBuilder.equal(root.get("state"), 0));
 			Predicate p1 = criteriaBuilder.and(predicateTagList.toArray(new Predicate[predicateTagList.size()]));
 			return criteriaQuery.where(p1).getRestriction();
@@ -90,8 +100,17 @@ public class EventServiceImpl implements EventService {
 			of = PageRequest.of(page.getPage()-1, page.getSize());
 		else
 			of = PageRequest.of(page.getPage()-1, page.getSize(),Sort.Direction.DESC, page.getSortBy());
-
-		return eventRepository.findAll(specification,of).getContent();
+		List<Event> contents = eventRepository.findAll(specification, of).getContent();
+		// 找到分组组数
+		if (contents != null){
+			if (!StringUtils.isEmpty(event.getSignStatus()) && event.getSignStatus()==2){
+				for (Event content:contents){
+					Integer maxGroup = groupRouteRepository.findMaxGroup(content.getEventId());
+					content.setGroupRouteCount(maxGroup);
+				}
+			}
+		}
+		return contents;
 	}
 
 }

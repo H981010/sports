@@ -40,6 +40,9 @@ public class Event {
     private Integer state;         //比赛状态 0,1,2  未开始、进行中、已完成
     private Integer signStatus;    //报名状态 0,1,2  未开始、报名中、报名结束
     private Integer type;          //比赛类型 0,1 田赛、经赛
+
+    private Integer createdBy;     //创建人id
+    private Integer collegeId;     //举办比赛的学院id,0表示校级比赛
 //    private String arrangement;    //比赛安排
 
 //    @OneToOne
@@ -55,5 +58,8 @@ public class Event {
     @JoinTable(name = "link_event_user", joinColumns = { @JoinColumn(name = "eventId") }, inverseJoinColumns = {
             @JoinColumn(name = "userId") }, foreignKey = @ForeignKey(name = "none", value = ConstraintMode.NO_CONSTRAINT), inverseForeignKey = @ForeignKey(name = "none", value = ConstraintMode.NO_CONSTRAINT))
     private List<User> users;        //参赛人员
+
+    @Transient
+    private Integer groupRouteCount;  //分组组数
 
 }

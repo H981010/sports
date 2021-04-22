@@ -55,7 +55,7 @@ public class EventController {
 		if (object == null)
 			throw new CustomerException("未登录，请先登录");
 		User user = (User) object;
-		if (user.getPower() != 0)
+		if (user.getPower() == 2)
 			throw new CustomerException("无权限编辑");
 		if (StringUtils.isEmpty(event.getEventName()))
 			throw new CustomerException("比赛名称不能为空");
@@ -65,6 +65,11 @@ public class EventController {
 			throw new CustomerException("比赛类型不能为空");
 		event.setState(0);
 		event.setSignStatus(0);
+		event.setCreatedBy(user.getUserId());
+		if (user.getPower() == 0)
+			event.setCollegeId(0);
+		else
+			event.setCollegeId(user.getClasses().getCollege().getCollegeId());
 		eventRepository.save(event);
 		return new ResultVo();
 	}
@@ -232,9 +237,7 @@ public class EventController {
 	 * 获取赛事信息（状态排序）
 	 */
 	@GetMapping("/get/ready/info")
-	public ResultVo getEvents(){
-		return new ResultVo(eventRepository.findAllOrOrderByState());
-	}
+	public ResultVo getEvents(){ return new ResultVo(eventRepository.findAllOrOrderByState()); }
 
 
 	/**
@@ -242,6 +245,16 @@ public class EventController {
 	 */
 	@GetMapping("/get/where/info")
 	public ResultVo getEvents(Event event,Page page){
+		Object object = session.getAttribute("user");
+		if (object == null){
+			throw new CustomerException("未登录，请先登录");
+		}else {
+			User user = (User) object;
+			if(user.getPower() == 0)
+				event.setCollegeId(0);
+			else
+				event.setCollegeId(user.getClasses().getCollege().getCollegeId());
+		}
 		return new ResultVo(eventService.findAllByWhere(event, page));
 	}
 
@@ -251,6 +264,16 @@ public class EventController {
 	 */
 	@GetMapping("/get/info")
 	public ResultVo getEventInfo(Event event,Page page){
+		Object object = session.getAttribute("user");
+		if (object == null){
+			throw new CustomerException("未登录，请先登录");
+		}else {
+			User user = (User) object;
+			if(user.getPower() == 0)
+				event.setCollegeId(0);
+			else
+				event.setCollegeId(user.getClasses().getCollege().getCollegeId());
+		}
 		return new ResultVo(eventService.get(event, page));
 	}
 }
